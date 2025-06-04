@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LittleShiba_Website</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f900;
+      color: #333;
+      overflow: hidden;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Top Bar */
+    nav {
+        width: 100%;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: fadeInTopBar 1s ease forwards;
+        animation-delay: 2.5s;
+        z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+        margin-left: auto; 
+    }
+
+    nav ul li a {
+      position: relative;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s;
+      padding-bottom: 4px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    nav ul li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0%;
+        height: 2px;
+        background-color: #ffffff;
+        transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+        width: 100%;
+    }
+
+    @keyframes fadeInTopBar {
+        to { opacity: 1; }
+    }
+
+    .center-content {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeSlideIn 1.5s ease forwards;
+      animation-delay: 1s;
+      padding: 2rem;
+    }
+
+    .center-content h1 {
+      font-size: 2.5rem;
+      color: #aacaff;
+      margin-bottom: 1rem;
+    }
+
+    .center-content .about-me {
+      max-width: 600px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      line-height: 1.5;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Background Video */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #eee;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0;
+      animation: fadeInFooter 1s ease forwards;
+      animation-delay: 3s;
+    }
+
+    @keyframes fadeInFooter {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="/src/BG.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Top Bar Navigation -->
+  <nav>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="Portfolio.html">Portfolio</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Centered Intro -->
+  <div class="center-content">
+    <h1>About Me</h1>
+    <div class="about-me">
+      <p><strong>Name:</strong> NG Ka Chun</p>
+      <p><strong>Age:</strong> 20</p>
+      <p><strong>Hobby:</strong> Coding, Gaming, and Photography</p>
+      <div class="about-section">
+      <p><strong>Education:</strong></p>
+      <ul>
+        <li>Diploma of Foundation Studies (Information Technology) 2023 - 2024</li>
+        <li>Higher Diploma in Games and Animation 2024 - 2026</li>
+      </ul>
+      <p><strong>Script Skills:</strong> HTML, CSS, JavaScript, Python, Lua</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 LittleShiba. All rights reserved.
+  </footer>
+
+  <!-- JavaScript to Remove Loader -->
+  <script>
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loading-screen');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
